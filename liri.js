@@ -5,7 +5,7 @@ var Spotify = require("node-spotify-api");
 var axios = require("axios");
 
 // var request = require("request");
-var input = JSON.stringify(process.argv.slice(3).join("+"));
+var input = process.argv.slice(3).join(" ");
 var liriResponse = process.argv[2];
 var moment = require("moment");
 
@@ -89,14 +89,15 @@ function movieThis() {
             console.log("Plot: " + response.data.Plot);
             console.log("Actors: " + response.data.Actors); 
         console.log("====================")
-        });
+            });
 };
 
 function concertThis(){
-    var queryUrl = "https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp";
-    axios.get(queryUrl)
-        .then(function(response){
-            for (var i = 0; i < response.data.length; i++) {
+    var queryUrl = "ht tps://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp&limit=1";
+    axios.get(queryUrl).then(function(response){
+              // console.log(response);
+                      
+            for (i = 0; i < response.data.length; i++) {
                 console.log("====================")
                 console.log(input)
                 console.log(`Venue: ${response.data[i].venue.name}`)
@@ -107,3 +108,24 @@ function concertThis(){
             };
         });
 }
+
+// This block of code will read from the "random.txt" file.
+
+fs.readFile("random.txt", "utf8", function (error, data) {
+
+    // If the code experiences any errors it will log the error to the console.
+    if (error) {
+        return console.log(error);
+    }
+
+    // We will then print the contents of data
+    console.log(data);
+
+    // Then split it by commas (to make it more readable)
+    var dataArr = data.split(",");
+
+    // We will then re-display the content as an array for later use.
+    console.log(dataArr);
+
+});
+
